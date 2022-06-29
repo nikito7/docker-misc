@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    hostname: pi.hole
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      #- "67:67/udp"
+      - "8095:80/tcp"
+    environment:
+      TZ: 'Europe/Lisbon'
+      WEBPASSWORD: 'password'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - './conf:/etc/pihole'
+      - './dnsmasq:/etc/dnsmasq.d'
+    restart: unless-stopped
+
+#eof
